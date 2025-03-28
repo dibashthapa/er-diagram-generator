@@ -5,28 +5,20 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ER Diagram Generator</title>
-    <!-- Import Inter font - perfect for neobrutalism -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- CodeMirror CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"
     />
-<!-- Replace the Nord theme with a more professional one -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
-
-    <!-- CodeMirror core -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-    <!-- Key mode for syntax highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
-    <!-- Additional features -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/matchbrackets.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css"
+    />
     <style>
       :root {
         --primary-color: #000000;
@@ -47,6 +39,8 @@
         padding: 0;
       }
 
+      .cm-editor { height: 300px; border: 1px solid #ddd; margin-bottom: 20px;}
+      .cm-scroller { overflow: auto; }
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
           Arial, sans-serif;
@@ -63,85 +57,10 @@
         overflow: hidden;
       }
 
-        /* CodeMirror customization - professional style */
-        .CodeMirror {
-          height: 300px;
-          font-family: 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
-          font-size: 14px;
-          line-height: 1.6;
-          border-bottom-left-radius: calc(var(--border-radius) - 2px);
-          border-bottom-right-radius: calc(var(--border-radius) - 2px);
-        }
-      
-        /* Add editor header back */
-        .editor-header {
-          display: flex;
-          align-items: center;
-          padding: 8px 12px;
-          background: #1e1e1e; /* Dark header for code editor */
-          border-top-left-radius: calc(var(--border-radius) - 2px);
-          border-top-right-radius: calc(var(--border-radius) - 2px);
-        }
-      
-        .editor-dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          margin-right: 6px;
-        }
-      
-        .dot-red {
-          background-color: #ff5f57;
-        }
-      
-        .dot-yellow {
-          background-color: #febc2e;
-        }
-      
-        .dot-green {
-          background-color: #28c840;
-        }
-      
-        /* Professional Code Editor Styling */
-        .CodeMirror-gutters {
-          background: #f7f7f7;
-          border-right: 1px solid #ddd;
-        }
-      
-        .CodeMirror-linenumber {
-          color: #888;
-          padding: 0 10px;
-        }
-      
-        /* Style for active line */
-        .CodeMirror-activeline-background {
-          background: rgba(0,0,0,0.05);
-        }
-      
-        /* Editor resize handle */
-        .editor-resize-handle {
-          height: 5px;
-          background-color: #f0f0f0;
-          cursor: ns-resize;
-          position: relative;
-        }
-      
-        .editor-resize-handle:hover,
-        .editor-resize-handle:active {
-          background-color: #ccc;
-        }
-        
-        /* Editor container - simpler shadow */
-        .editor-container {
-          position: relative;
-          margin-bottom: 20px;
-          border: 1px solid #ddd;
-          border-radius: var(--border-radius);
-          background: #fff;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
 
-      /* Input container styling */
+
+
+
       #input-container {
         width: 28%;
         padding: 24px;
@@ -151,7 +70,7 @@
         flex-direction: column;
         box-shadow: var(--shadow-offset) 0 0 0 var(--primary-color);
         position: relative;
-        z-index: 10; /* Ensure shadow appears above graph container */
+
       }
 
       .app-title {
@@ -169,60 +88,9 @@
         height: 28px;
       }
 
-      /* Code editor styling */
-      .editor-container {
-        position: relative;
-        margin-bottom: 20px;
-        border: var(--border-width) solid var(--primary-color);
-        border-radius: var(--border-radius);
-        background: #fff;
-        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--primary-color);
-      }
 
-      .editor-header {
-        display: flex;
-        align-items: center;
-        padding: 8px 12px;
-        background: var(--primary-color);
-        border-top-left-radius: calc(var(--border-radius) - 2px);
-        border-top-right-radius: calc(var(--border-radius) - 2px);
-      }
 
-      .editor-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        margin-right: 6px;
-      }
 
-      .dot-red {
-        background-color: #ff5f57;
-      }
-
-      .dot-yellow {
-        background-color: #febc2e;
-      }
-
-      .dot-green {
-        background-color: #28c840;
-      }
-
-      #code {
-        width: 100%;
-        height: 300px;
-        padding: 16px;
-        font-family: 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
-        font-size: 14px;
-        line-height: 1.6;
-        border: none;
-        border-bottom-left-radius: calc(var(--border-radius) - 2px);
-        border-bottom-right-radius: calc(var(--border-radius) - 2px);
-        resize: vertical;
-        outline: none;
-        tab-size: 2;
-      }
-
-      /* Button styling */
       .button-container {
         display: flex;
         gap: 12px;
@@ -277,18 +145,25 @@
         color: var(--primary-color);
       }
 
-      /* Diagram container styling */
-      #graphContainer {
+
+      #graphContainer{
         flex: 1;
         position: relative;
         height: 100%;
         overflow: hidden;
-        background-color: var(--bg-color);
+        /* background-color: var(--bg-color); */
         border-left: var(--border-width) solid var(--primary-color);
-        margin-left: -2px; /* Overlap borders */
+
       }
 
-      /* Zoom controls styling */
+      #erContainer {
+        position: relative; 
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+
+
       #zoom-controls {
         position: absolute;
         top: 20px;
@@ -328,7 +203,7 @@
         background-color: rgba(0, 0, 0, 0.1);
       }
 
-      /* Diagram empty state */
+
       .empty-state {
         position: absolute;
         top: 50%;
@@ -347,8 +222,6 @@
         height: 80px;
         opacity: 0.5;
       }
-
-
     </style>
   </head>
   <body>
@@ -423,7 +296,6 @@
         </div>
       </div>
 
-      <!-- Right container for the diagram -->
       <div id="graphContainer">
         <div id="erContainer"></div>
         <div class="empty-state" id="empty-state">
@@ -505,7 +377,6 @@
 
     <script type="module" src="/src/main.js"></script>
     <script>
-      // Hide empty state when a diagram is generated
       document.getElementById('generate-diagram').addEventListener('click', function () {
         const emptyState = document.getElementById('empty-state');
         if (emptyState) {

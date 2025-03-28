@@ -84,6 +84,9 @@ export default class ErDB {
   }
 
   addAttributes(entityName, attribs) {
+    console.log({
+      attribs
+    })
     const entity = this.addEntity(entityName); // May do nothing (if entity has already been added)
 
     // Process attribs in reverse order due to effect of recursive construction (last attribute is first)
