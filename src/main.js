@@ -15,14 +15,78 @@ import {
 const editor = new EditorView({
   doc: `erDiagram
     STUDENT {
-        int student_id
-        string first_name
-        string last_name
-        date birth_date
-        string gender
-        string email
-        string phone_number
+        int StudentID PK
+        string Name
+        int Age
+        string Gender
+        string Address
+        string Email
+        int ClassID FK
     }
+    
+    CLASS {
+        int ClassID PK
+        string ClassName
+        int TeacherID FK
+    }
+    
+    TEACHER {
+        int TeacherID PK
+        string Name
+        string Subject
+        string Email
+        string Phone
+    }
+    
+    SUBJECT {
+        int SubjectID PK
+        string SubjectName
+    }
+
+    ENROLLMENT {
+        int EnrollmentID PK
+        int StudentID FK
+        int ClassID FK
+        int SubjectID FK
+        string EnrollmentDate
+    }
+
+    ATTENDANCE {
+        int AttendanceID PK
+        int StudentID FK
+        int ClassID FK
+        date Date
+        string Status
+    }
+    
+    EXAM {
+        int ExamID PK
+        int ClassID FK
+        int SubjectID FK
+        date ExamDate
+    }
+    
+    RESULT {
+        int ResultID PK
+        int StudentID FK
+        int ExamID FK
+        float Marks
+        string Grade
+    }
+
+    STUDENT ||--|{ CLASS : "enrolled in"
+    CLASS ||--|{ STUDENT : "has"
+    CLASS ||--|| TEACHER : "taught by"
+    CLASS ||--|{ ENROLLMENT : "has"
+    STUDENT ||--|{ ENROLLMENT : "registers in"
+    ENROLLMENT ||--|| SUBJECT : "includes"
+    STUDENT ||--|{ ATTENDANCE : "has"
+    ATTENDANCE ||--|| CLASS : "recorded for"
+    EXAM ||--|| CLASS : "conducted for"
+    EXAM ||--|| SUBJECT : "covers"
+    RESULT ||--|| EXAM : "associated with"
+    RESULT ||--|| STUDENT : "belongs to"
+
     `,
 
   extensions: [basicSetup, EditorView.lineWrapping],
@@ -212,13 +276,7 @@ function createERDiagram(data) {
             style =
               'shape=ellipse;perimeter=ellipsePerimeter;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;';
             displayName = attr.name;
-          } else if (attr.multivalued) {
-            style =
-              'shape=doubleEllipse;perimeter=ellipsePerimeter;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;';
-          } else if (attr.derived) {
-            style =
-              'shape=ellipse;perimeter=ellipsePerimeter;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;';
-          }
+          } 
 
           const attrCell = graph.insertVertex(
             parent,
@@ -340,6 +398,7 @@ function createERDiagram(data) {
     adjustNodePositions(graph, entityCells);
   } finally {
     graph.getModel().endUpdate();
+    graph.fit();
   }
 
   return graph;
