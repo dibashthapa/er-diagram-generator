@@ -272,10 +272,6 @@ function createERDiagram(data) {
             style =
               'shape=ellipse;perimeter=ellipsePerimeter;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;fontStyle=4;';
             displayName = attr.name;
-          } else if (attr.keys && attr.keys.includes('FK')) {
-            style =
-              'shape=ellipse;perimeter=ellipsePerimeter;fillColor=#FFFFFF;strokeColor=#000000;strokeWidth=1.5;dashed=1;';
-            displayName = attr.name;
           } 
 
           const attrCell = graph.insertVertex(
