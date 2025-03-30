@@ -2,7 +2,9 @@
 
 👉 [Try the Live Demo](https://er-diagram-generator.netlify.app/)
 
+
 ## Acknowledgements
+- [Mermaid](https://github.com/mermaid-js/mermaid/) for the parser
 - [mxGraph](https://github.com/jgraph/mxgraph) for the diagram rendering library 
 - [Codemirror](https://codemirror.net/) for the code editor
 
