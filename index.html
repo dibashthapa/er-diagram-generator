@@ -253,7 +253,6 @@
         font-weight: 500;
       }
 
-      /* Help icon */
       .help-icon {
         position: absolute;
         right: 10px;
@@ -302,7 +301,6 @@
         text-decoration: underline;
       }
 
-      /* Responsive */
       @media (max-width: 768px) {
         #app {
           flex-direction: column;
@@ -320,7 +318,6 @@
         }
       }
 
-      /* Adjust main app container to account for navbar */
       #app {
         height: calc(100vh - 50px);
         margin-top: 50px;
@@ -458,8 +455,6 @@
             Download
           </button>
         </div>
-
-        <!-- Help icon -->
       </div>
 
       <div id="graphContainer">
@@ -548,15 +543,6 @@
         if (emptyState) {
           emptyState.style.display = 'none';
         }
-      });
-
-      // Help tooltip functionality
-      document.getElementById('help-icon').addEventListener('mouseenter', function () {
-        document.getElementById('help-tooltip').style.display = 'block';
-      });
-
-      document.getElementById('help-icon').addEventListener('mouseleave', function () {
-        document.getElementById('help-tooltip').style.display = 'none';
       });
     </script>
   </body>
